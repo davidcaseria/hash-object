@@ -1,0 +1,39 @@
+{
+  "name": "hash-object",
+  "version": "0.0.0",
+  "main": "lib/hash-object.js",
+  "description": "A Node.js module that hashes JavaScript objects.",
+  "homepage": "https://github.com/davidcaseria/hash-object",
+  "bugs": "https://github.com/davidcaseria/hash-object/issues",
+  "author": {
+    "name": "David Caseria",
+    "email": "davidcaseria@gmail.com",
+    "url": "https://github.com/davidcaseria"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidcaseria/hash-object"
+  },
+  "license": "MIT",
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "hash-object",
+    "hash",
+    "object"
+  ],
+  "devDependencies": {
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-nodeunit": "^0.3.3",
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "^0.4.0",
+    "time-grunt": "^0.3.1",
+    "grunt-mocha-cli": "^1.9.0",
+    "jshint-stylish": "^0.2.0",
+    "chai": "~1.9.2"
+  },
+  "scripts": {
+    "test": "grunt"
+  }
+}
