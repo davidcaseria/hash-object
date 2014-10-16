@@ -5,17 +5,17 @@
 var expect = require('chai').expect,
     hashObject = require('../lib/hash-object.js');
 
-describe('HashObject', function() {
-    
-    it('should hash simple objects', function() {
+describe('HashObject', function () {
+
+    it('should hash simple objects', function () {
         var hash = hashObject({
             b: 'a',
             a: 'b'
         });
         expect(hash).to.be.ok;
     });
-    
-    it('should hash complex objects', function() {
+
+    it('should hash complex objects', function () {
         var hash = hashObject({
             test: 'hash',
             b: 'a',
@@ -35,23 +35,30 @@ describe('HashObject', function() {
         });
         expect(hash).to.be.ok;
     });
-    
-    // TODO test arrays
-    
-    it('should equally hash identical simple objects', function() {
+
+    it('should hash objects with arrays', function () {
+        var hash = hashObject({
+            b: 'a',
+            a: ['b', 'c', 'd', 'e'],
+            c: 'd'
+        });
+        expect(hash).to.be.ok;
+    });
+
+    it('should equally hash identical simple objects', function () {
         var obj = {
             a: 'b',
             c: 'd',
             e: 'f'
         };
-        
+
         var hash1 = hashObject(obj);
         var hash2 = hashObject(obj);
-        
+
         expect(hash1).to.equal(hash2);
     });
-    
-    it('should equally hash identical (but unordered) simple objects', function() {
+
+    it('should equally hash identical (but unordered) simple objects', function () {
         var hash1 = hashObject({
             a: 'b',
             c: 'd',
@@ -62,11 +69,11 @@ describe('HashObject', function() {
             e: 'f',
             c: 'd'
         });
-        
+
         expect(hash1).to.equal(hash2);
     });
-    
-    it('should equally hash identical complex objects', function() {
+
+    it('should equally hash identical complex objects', function () {
         var obj = {
             a: 'b',
             b: {
@@ -85,14 +92,14 @@ describe('HashObject', function() {
             },
             e: 'f'
         };
-        
+
         var hash1 = hashObject(obj);
         var hash2 = hashObject(obj);
-        
+
         expect(hash1).to.equal(hash2);
     });
-    
-    it('should equally hash identical (but unordered) complex objects', function() {
+
+    it('should equally hash identical (but unordered) complex objects', function () {
         var hash1 = hashObject({
             a: 'b',
             b: {
@@ -135,10 +142,185 @@ describe('HashObject', function() {
             e: 'f',
             c: 'd'
         });
-        
+
         expect(hash1).to.equal(hash2);
     });
-    
-    // TODO test arrays
-    
+
+    it('should equally hash identical complex objects with arrays', function () {
+        var obj = {
+            a: 'b',
+            b: {
+                c: 'd'
+            },
+            c: 'd',
+            d: {
+                e: {
+                    f: 'g'
+                },
+                f: [
+                    {
+                        g: 'h'
+                    },
+                    {
+                        g: {
+                            h: 'i'
+                        }
+                    }
+                ]
+            },
+            e: 'f'
+        };
+
+        var hash1 = hashObject(obj);
+        var hash2 = hashObject(obj);
+
+        expect(hash1).to.equal(hash2);
+    });
+
+    it('should equally hash identical (but unordered) complex objects with arrays', function () {
+        var hash1 = hashObject({
+            a: 'b',
+            b: ['c', 'd'],
+            c: 'd',
+            d: {
+                e: {
+                    f: 'g'
+                },
+                f: [
+                    {
+                        g: 'h'
+                    },
+                    {
+                        g: {
+                            h: 'i'
+                        }
+                    }
+                ]
+            },
+            e: 'f'
+        });
+        var hash2 = hashObject({
+            a: 'b',
+            d: {
+                f: [
+                    {
+                        g: 'h'
+                    },
+                    {
+                        g: {
+                            h: 'i'
+                        }
+                    }
+                ],
+                e: {
+                    f: 'g'
+                }
+            },
+            b: ['c', 'd'],
+            e: 'f',
+            c: 'd'
+        });
+
+        expect(hash1).to.equal(hash2);
+    });
+
+    it('should not equally hash different simple objects', function () {
+        var hash1 = hashObject({
+            a: 'b',
+            c: 'd',
+            e: 'f'
+        });
+        var hash2 = hashObject({
+            a: 'b',
+            c: 'd'
+        });
+
+        expect(hash1).to.not.equal(hash2);
+    });
+
+    it('should not equally hash different complex objects', function () {
+        var hash1 = hashObject({
+            a: 'b',
+            b: {
+                c: 'd'
+            },
+            c: 'd',
+            d: {
+                e: {
+                    f: 'g'
+                },
+                f: {
+                    g: {
+                        h: 'i'
+                    },
+                    h: {
+                        i: 'j'
+                    }
+                }
+            },
+            e: 'f'
+        });
+        var hash2 = hashObject({
+            a: 'b',
+            b: {
+                c: 'd'
+            },
+            c: 'd',
+            d: {
+                e: {
+                    f: 'g'
+                },
+                f: {
+                    g: 'h',
+                    h: 'i'
+                }
+            },
+            e: 'f'
+        });
+
+        expect(hash1).to.not.equal(hash2);
+    });
+
+    it('should not equally hash different complex objects (with arrays_', function () {
+        var hash1 = hashObject({
+            a: 'b',
+            d: {
+                f: [
+                    {
+                        g: 'h'
+                    },
+                    {
+                        g: {
+                            h: 'i'
+                        }
+                    }
+                ],
+                e: {
+                    f: 'g'
+                }
+            },
+            b: ['c', 'd'],
+            e: 'f',
+            c: 'd'
+        });
+        var hash2 = hashObject({
+            a: 'b',
+            d: {
+                f: [
+                    {
+                        g: 'h'
+                    }
+                ],
+                e: {
+                    f: 'g'
+                }
+            },
+            b: ['c', 'd'],
+            e: 'f',
+            c: 'd'
+        });
+
+        expect(hash1).to.not.equal(hash2);
+    });
+
 });
