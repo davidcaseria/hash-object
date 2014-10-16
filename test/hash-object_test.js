@@ -7,8 +7,33 @@ var expect = require('chai').expect,
 
 describe('HashObject', function () {
 
-    it('should not hash null objects', function () {
+    it('should not hash null', function () {
         var hash = hashObject(null);
+        expect(hash).to.not.be.ok;
+    });
+    
+    it('should not hash undefined', function () {
+        var hash = hashObject(undefined);
+        expect(hash).to.not.be.ok;
+    });
+    
+    it('should not hash an integer', function () {
+        var hash = hashObject(1);
+        expect(hash).to.not.be.ok;
+    });
+    
+    it('should not hash a number', function () {
+        var hash = hashObject(1.2);
+        expect(hash).to.not.be.ok;
+    });
+    
+    it('should not hash a string', function () {
+        var hash = hashObject('hash');
+        expect(hash).to.not.be.ok;
+    });
+    
+    it('should not hash functions', function () {
+        var hash = hashObject(function () {});
         expect(hash).to.not.be.ok;
     });
     
