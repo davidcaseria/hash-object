@@ -1,6 +1,6 @@
 {
   "name": "hash-object",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "lib/hash-object.js",
   "description": "A Node.js module that hashes JavaScript objects.",
   "homepage": "https://github.com/davidcaseria/hash-object",
