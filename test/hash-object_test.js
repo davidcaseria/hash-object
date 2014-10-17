@@ -636,7 +636,7 @@ describe('HashObject', function () {
         expect(hash1).to.not.equal(hash2);
     });
 
-    it('should not equally hash different complex objects (with arrays_', function () {
+    it('should not equally hash different complex objects with arrays', function () {
         var hash1 = hashObject({
             a: 'b',
             d: {
@@ -676,6 +676,30 @@ describe('HashObject', function () {
         });
 
         expect(hash1).to.not.equal(hash2);
+    });
+    
+    it('should equally hash different complex objects with null keys or empty arrays', function () {
+        var hash1 = hashObject({
+            a: 'b',
+            d: {
+                e: 'f',
+                f: [],
+                g: null
+            },
+            b: ['c', 'd'],
+            e: 'f',
+            c: null
+        });
+        var hash2 = hashObject({
+            a: 'b',
+            d: {
+                e: 'f'
+            },
+            e: 'f',
+            b: ['c', 'd'],
+        });
+
+        expect(hash1).to.equal(hash2);
     });
 
 });
